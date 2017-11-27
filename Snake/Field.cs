@@ -9,25 +9,25 @@ namespace Snake
     class Field
     {
         /*0-пустая клетка(пусто на экране), #-стена*/
-        private int x;
-        private int y;
-        private int NowX;
-        private int NowY;
-        private char[,] FieldArray;  
+        private int X;
+        private int Y;
+        internal int NowX { get; set; }
+        internal int NowY { get; set; }
+        private char[,] FieldArray;
+        private ConDrawing drw = new ConDrawing();
         public Field(int x,int y)
         {
-            this.x = x;
-            this.y = y;
+            this.X = x;
+            this.Y = y;
         }
-
         public void MakeArray() //Создает массив состояния поля
         {
-            FieldArray = new char[x, y];
-            for (int i = 0; i < x; i++)
+            FieldArray = new char[X, Y];
+            for (int i = 0; i < X; i++)
             {
-                for(int i2 = 0; i2 < y; i2++)
+                for(int i2 = 0; i2 < Y; i2++)
                 {
-                    if(i==0 || i2 == 0 || (i==x-1)||(i2==y-1))
+                    if(i==0 || i2 == 0 || (i==X-1)||(i2==Y-1))
                     {
                         FieldArray[i,i2] = '#';
                     }
@@ -40,9 +40,9 @@ namespace Snake
         }
         public void PrintArray() //печатает массив состояния поля
         {
-            for (int i = 0; i < x; i++)
+            for (int i = 0; i < X; i++)
             {
-                for (int i2 = 0; i2 < y; i2++)
+                for (int i2 = 0; i2 < Y; i2++)
                 {
                     Console.Write(Convert.ToString(FieldArray[i, i2])+" ");
                 }
@@ -65,6 +65,7 @@ namespace Snake
                         FieldArray[NowX, NowY] = '0';
                         FieldArray[NowX, NowY - 1] = 'x';
                         NowY = NowY - 1;
+                        drw.MoveDraw(NowX, NowY * 2, "left");
                     }
                     break;
                 case "right":
@@ -73,6 +74,7 @@ namespace Snake
                         FieldArray[NowX, NowY] = '0';
                         FieldArray[NowX, NowY + 1] = 'x';
                         NowY = NowY + 1;
+                        drw.MoveDraw(NowX, NowY*2,"right");
                     }
                     break;
                 case "up":
@@ -81,6 +83,7 @@ namespace Snake
                         FieldArray[NowX, NowY] = '0';
                         FieldArray[NowX - 1, NowY] = 'x';
                         NowX = NowX - 1;
+                        drw.MoveDraw(NowX, NowY * 2, "up");
                     }
                     break;
                 case "down":
@@ -89,14 +92,12 @@ namespace Snake
                         FieldArray[NowX, NowY] = '0';
                         FieldArray[NowX + 1, NowY] = 'x';
                         NowX = NowX + 1;
+                        drw.MoveDraw(NowX, NowY * 2, "down");
                     }
                     break;
                 default:
-                    Console.WriteLine("Error");
                     break;
             }
-
-
         }
 
     }
