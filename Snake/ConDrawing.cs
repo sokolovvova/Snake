@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Snake
 {
@@ -16,25 +13,25 @@ namespace Snake
                     Console.SetCursorPosition(x, y);
                     Console.Write("x");
                     Console.SetCursorPosition(x + 2, y);
-                    Console.Write("0");
+                    Console.Write(" ");
                     break;
                 case "right":
                     Console.SetCursorPosition(x, y);
                     Console.Write("x");
                     Console.SetCursorPosition(x - 2, y);
-                    Console.Write("0");
+                    Console.Write(" ");
                     break;
                 case "up":
                     Console.SetCursorPosition(x, y);
                     Console.Write("x");
                     Console.SetCursorPosition(x , y + 1);
-                    Console.Write("0");
+                    Console.Write(" ");
                     break;
                 case "down":
                     Console.SetCursorPosition(x, y);
                     Console.Write("x");
                     Console.SetCursorPosition(x , y - 1);
-                    Console.Write("0");
+                    Console.Write(" ");
                     break;
 
 

@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Snake
 {
     class Field
@@ -11,9 +7,13 @@ namespace Snake
         /*0-пустая клетка(пусто на экране), #-стена*/
         private int X;
         private int Y;
+        internal int Score {get;set;}
         internal int NowX { get; set; }
         internal int NowY { get; set; }
         private char[,] FieldArray;
+        private int[] ar = new int[1];
+        private List<int[]> FruitList = new List<int[]>();
+        private Random random = new Random();
         private ConDrawing drw = new ConDrawing();
         public Field(int x,int y)
         {
@@ -33,7 +33,7 @@ namespace Snake
                     }
                     else
                     {
-                        FieldArray[i,i2] = '0';
+                        FieldArray[i,i2] = ' ';
                     }
                 }
             }
@@ -49,55 +49,77 @@ namespace Snake
                 Console.WriteLine();
             }
         }
+        public void InitFruits(int number)
+        {
+            while (number > 0)
+            {
+                int x = random.Next(1, X-2);
+                int y = random.Next(1, Y-2);
+                if (FieldArray[x, y] == ' ')
+                {
+                    FieldArray[x, y] = '*';
+                    int[] arr = new int[] { X, Y };
+                    FruitList.Add(arr);
+                    number -= 1;
+                }
+
+            }
+        }
         public void InitSnake()
         {
             FieldArray[1, 1] = 'x';
             NowX = 1;
             NowY = 1;
+            Score = 0;
         }
-        public void Moving(string direction)
+        public int Moving(string direction)
         {
             switch (direction)
             {
                 case "left":
                     if (FieldArray[NowX, NowY - 1] != '#')
                     {
-                        FieldArray[NowX, NowY] = '0';
+                        FieldArray[NowX, NowY] = ' ';
                         FieldArray[NowX, NowY - 1] = 'x';
                         NowY = NowY - 1;
                         drw.MoveDraw(NowX, NowY * 2, "left");
                     }
+                    else return 1;
                     break;
                 case "right":
                     if (FieldArray[NowX, NowY + 1] != '#')
                     {
-                        FieldArray[NowX, NowY] = '0';
+                        FieldArray[NowX, NowY] = ' ';
                         FieldArray[NowX, NowY + 1] = 'x';
                         NowY = NowY + 1;
                         drw.MoveDraw(NowX, NowY*2,"right");
                     }
+                    else return 1;
                     break;
                 case "up":
                     if (FieldArray[NowX - 1, NowY] != '#')
                     {
-                        FieldArray[NowX, NowY] = '0';
+                        FieldArray[NowX, NowY] = ' ';
                         FieldArray[NowX - 1, NowY] = 'x';
                         NowX = NowX - 1;
                         drw.MoveDraw(NowX, NowY * 2, "up");
                     }
+                    else return 1;
                     break;
                 case "down":
                     if (FieldArray[NowX + 1, NowY] != '#')
                     {
-                        FieldArray[NowX, NowY] = '0';
+                        FieldArray[NowX, NowY] = ' ';
                         FieldArray[NowX + 1, NowY] = 'x';
                         NowX = NowX + 1;
                         drw.MoveDraw(NowX, NowY * 2, "down");
                     }
+                    else return 1;
                     break;
                 default:
                     break;
             }
+            return 0;
         }
 
     }
