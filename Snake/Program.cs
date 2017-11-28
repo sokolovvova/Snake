@@ -24,13 +24,15 @@ namespace Snake
             Console.Clear();
             int GameState = 1;
             field.MakeArray();
-            field.InitFruits(50);
             field.InitSnake();
             field.PrintArray();
+            field.InitFruit();
             Console.SetCursorPosition(0, x);
+
             Console.WriteLine("Field Size: "+Convert.ToString(x-2)+"x"+ Convert.ToString(y-2)+"("+ Convert.ToString(x)+"x"+ Convert.ToString(y)+")");
             Console.SetCursorPosition(0, x + 2);
             Console.WriteLine("Help: q-quite");
+
             while (true)
             {
                 string Direction="";
@@ -60,21 +62,25 @@ namespace Snake
                         break;
 
                 }
-                int state = field.Moving(Direction);
+                int state = field.Moving(Direction,0,1);
                 Console.SetCursorPosition(17, x + 1);
                 Console.Write("                                ");
                 Console.SetCursorPosition(0,x+1);
                 Console.Write("Head Coordinats: "+Convert.ToString(field.NowX) + " " + Convert.ToString(field.NowY));
                 Console.SetCursorPosition(0, x + 3);
+                Console.Write("Score: "+Convert.ToInt32(field.Score));
+
+                Console.SetCursorPosition(0, x + 4);
                 Console.Write("Input: ");
-                Console.SetCursorPosition(7, x + 3);
+                Console.SetCursorPosition(7, x + 4);
+
                 if (state == 1)
                 {
                     GameState = 3;
                     break;
                 }
             }
-            Console.SetCursorPosition(0, x + 4);
+            Console.SetCursorPosition(0, x + 5);
             switch (GameState)
             {
                 case 1:

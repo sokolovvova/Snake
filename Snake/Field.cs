@@ -10,9 +10,10 @@ namespace Snake
         internal int Score {get;set;}
         internal int NowX { get; set; }
         internal int NowY { get; set; }
+        private List<Char> Snake = new List<Char>();
         private char[,] FieldArray;
         private int[] ar = new int[1];
-        private List<int[]> FruitList = new List<int[]>();
+        private int[] FruitCoord = new int[2];
         private Random random = new Random();
         private ConDrawing drw = new ConDrawing();
         public Field(int x,int y)
@@ -49,21 +50,17 @@ namespace Snake
                 Console.WriteLine();
             }
         }
-        public void InitFruits(int number)
+        public void InitFruit()
         {
-            while (number > 0)
+            int x = random.Next(1, X - 2);
+            int y = random.Next(1, Y - 2);
+            if (FieldArray[x, y] == ' ')
             {
-                int x = random.Next(1, X-2);
-                int y = random.Next(1, Y-2);
-                if (FieldArray[x, y] == ' ')
-                {
-                    FieldArray[x, y] = '*';
-                    int[] arr = new int[] { X, Y };
-                    FruitList.Add(arr);
-                    number -= 1;
-                }
-
+                FruitCoord[0] = x;
+                FruitCoord[1] = y;
             }
+            Console.SetCursorPosition(y*2, x);
+            Console.Write('0');
         }
         public void InitSnake()
         {
@@ -72,8 +69,9 @@ namespace Snake
             NowY = 1;
             Score = 0;
         }
-        public int Moving(string direction)
+        public int Moving(string direction,int num,int head)
         {
+            
             switch (direction)
             {
                 case "left":
@@ -119,6 +117,11 @@ namespace Snake
                 default:
                     break;
             }
+            if (FruitCoord[0] == NowX && FruitCoord[1] == NowY)
+                {
+                    Score += 1;
+                    InitFruit();
+                }
             return 0;
         }
 

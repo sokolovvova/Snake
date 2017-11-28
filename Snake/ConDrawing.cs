@@ -13,7 +13,7 @@ namespace Snake
                     Console.SetCursorPosition(x, y);
                     Console.Write("x");
                     Console.SetCursorPosition(x + 2, y);
-                    Console.Write(" ");
+                    Console.Write("");
                     break;
                 case "right":
                     Console.SetCursorPosition(x, y);
